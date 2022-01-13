@@ -1,6 +1,6 @@
-import MySQL
+import mysql.connector
 
-con = mysql.connector.connect(user='root', password='Guru!cha1', host='localhost', database='cabrides')
+con = mysql.connector.connect(user='sqluser', password='password', host='localhost', database='cabrides',auth_plugin='mysql_native_password')
 c = con.cursor()
 def create_table():
 
