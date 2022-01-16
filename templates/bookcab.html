@@ -66,7 +66,7 @@
                         <div class="card-body">
                           <h5 class="card-title">Fill the following details:</h5>
                           (DateTime format: YYYY-MM-DD HH:MM:SS )
-                          <form action="/bookcab" method="POST" class="login100-form validate-form">
+                          <form action="/insert" method="POST" class="login100-form validate-form">
                             <div class="wrap-input100 ">
                                 <input class="input100" type="text" name="rdriverid" placeholder="Driver ID">
                                 <span class="focus-input100"></span>
@@ -96,7 +96,7 @@
                                     <span class="focus-input100"></span>
                                 </div>                    
                             <div class="container-login100-form-btn">
-                                <button name="rideform" class="login100-form-btn js-tilt" type="submit">
+                                <button name="rideform" class="login100-form-btn js-tilt" type="submit" onclick="myFunction()">
                                     INSERT Values
                                 </button>
                             </div>
@@ -126,9 +126,9 @@
                                     <span class="focus-input100"></span>
                             </div>
                             <div class="container-login100-form-btn">
-                                <button name="crideform" class="login100-form-btn js-tilt" type="submit">
-                                    Cancel Ride
-                                </button>
+                                    <button name="crideform" class="login100-form-btn js-tilt" type="submit" onclick="myFunction1()">
+                                        Cancel Ride
+                                    </button>
                             </div>
                         </form>
                         </div>
@@ -154,6 +154,16 @@
 			scale: 1.1
 		})
 	</script>
+    <script>
+    function myFunction() {
+        alert("Your ride has been booked!");
+      }
+    </script>
+    <script>
+        function myFunction1() {
+            alert("Your ride has been cancelled!");
+          }
+        </script>
 <!--===============================================================================================-->
 	<script src="../static/js/main.js"></script>
 

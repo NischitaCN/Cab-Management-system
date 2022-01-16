@@ -49,16 +49,6 @@ def rider():
         return render_template('rider.html',rows=row)
     return render_template('login.html')
 
-@app.route('/bookcab',methods=['GET','POST'])
-def bookcab():
-    con=mysql.connection
-    cur=con.cursor()
-    def renderFunction():
-        cur.execute('select * from DRIVERS')
-        row=cur.fetchall()
-        return render_template('bookcab.html',rows=row)
-        return render_template('rider.html')
-    # def bookCabInsert():
 
 @app.route('/adminPage')
 def adminPage():
@@ -154,6 +144,7 @@ def insert():
     if(session['contact']==acontact):
         con=mysql.connection
         cur=con.cursor()
+        curr=con.cursor()
         if(request.method=='POST'):
             if 'rideform' in request.form:
                 #rideid=request.form['rideid']
@@ -209,7 +200,37 @@ def insert():
                 con.commit()
                 return redirect('/adminPage')
         return render_template('insert.html')
+    else:
+        con=mysql.connection
+        cur=con.cursor()
+        curr=con.cursor()
+        if(request.method=='POST'):
+            if 'rideform' in request.form:
+                #rideid=request.form['rideid']
+                rdriverid=request.form['rdriverid']
+                rriderid=request.form['rriderid']
+                dtstart=request.form['dtstart']
+                dtend=request.form['dtend']
+                ploc=request.form['ploc']
+                dloc=request.form['dloc']
+                rtype=request.form['rtype']
+                duplicate=duplicate_ride(dtstart,dtend)
+                if duplicate==True:
+                    return render_template('bookcab.html')
+                cur.execute("insert into RIDES(DriverId,RiderId,DateTime_start,DateTime_end,Pickup_loc,Drop_loc,Type) values(%s,%s,%s,%s,%s,%s,%s)",(rdriverid,rriderid,dtstart,dtend,ploc,dloc,rtype))
+                con.commit()
+                return redirect('/adminPage')
+            if 'crideform' in request.form:
+                crideid=request.form['crideid']
+                criderid=request.form['criderid']
+                cdriverid=request.form['cdriverid']
+                reason=request.form['reason']
+                cur.execute("insert into CANCELLED_RIDES values(%s,%s,%s,%s)",(crideid,criderid,cdriverid,reason))
+                con.commit()
+                return redirect('/adminPage')
+        return render_template('insert.html')  
     return render_template('login.html')
+
 def duplicate_ride(start,end):
     con = mysql.connection
     duplicate = False
@@ -251,6 +272,17 @@ def duplicate_rider(contact):
     return duplicate
 
 # ----------------------------duplicate------------------
+@app.route('/bookcab',methods=['GET','POST'])
+def bookcab():
+    con=mysql.connection
+    cur=con.cursor()
+    cur.execute('select * from DRIVERS')
+    row=cur.fetchall()
+    return render_template('bookcab.html',rows=row)
+    return render_template('rider.html')
+    # def bookCabInsert():
+    
+
 @app.route('/bookcab',methods=['GET','POST'])
 def insertride():
     con=mysql.connection
@@ -391,8 +423,6 @@ def delete():
                 cur.execute('delete from VEHICLE where Vehicle_Name=%s',(vname))
                 return redirect('/adminPage')
         return render_template('delete.html')
-    return render_template('login.html')
-
 
 if __name__ == '__main__':
     app.run(debug=True)

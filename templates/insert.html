@@ -75,7 +75,7 @@
                                     <span class="focus-input100"></span>
                                 </div>                    
                             <div class="container-login100-form-btn">
-                                <button name="rideform" class="login100-form-btn js-tilt" type="submit">
+                                <button name="rideform" class="login100-form-btn js-tilt" type="submit" onclick="myFunction()">
                                     INSERT Values
                                 </button>
                             </div>
@@ -105,7 +105,7 @@
                                     <span class="focus-input100"></span>
                             </div>                
                             <div class="container-login100-form-btn">
-                                <button name="driverform" class="login100-form-btn js-tilt" type="submit">
+                                <button name="driverform" class="login100-form-btn js-tilt" type="submit" onclick="myFunction1()">
                                     INSERT Values
                                 </button>
                             </div>
@@ -129,13 +129,9 @@
                             <div class="wrap-input100 ">
                                     <input class="input100" type="text" name="contact" placeholder="Contact No.">
                                     <span class="focus-input100"></span>
-                                </div>
-                            <div class="wrap-input100 ">
-                                    <input class="input100" type="text" name="dvname" placeholder="Vehicle Name">
-                                    <span class="focus-input100"></span>
-                            </div>                
+                                </div>                
                             <div class="container-login100-form-btn">
-                                <button name="riderform" class="login100-form-btn js-tilt" type="submit">
+                                <button name="riderform" class="login100-form-btn js-tilt" type="submit" onclick="myFunction2()">
                                     INSERT Values
                                 </button>
                             </div>
@@ -161,7 +157,7 @@
                                 <span class="focus-input100"></span>
                         </div>
                         <div class="container-login100-form-btn">
-                            <button name="vform" class="login100-form-btn js-tilt" type="submit">
+                            <button name="vform" class="login100-form-btn js-tilt" type="submit" onclick="myFunction3()">
                                 INSERT Values
                             </button>
                         </div>
@@ -191,7 +187,7 @@
                                 <span class="focus-input100"></span>
                         </div>
                         <div class="container-login100-form-btn">
-                            <button name="crideform" class="login100-form-btn js-tilt" type="submit">
+                            <button name="crideform" class="login100-form-btn js-tilt" type="submit" onclick="myFunction4()">
                                 Cancel Ride
                             </button>
                         </div>
@@ -219,6 +215,30 @@
 			scale: 1.1
 		})
 	</script>
+    <script>
+        function myFunction() {
+            alert("Admin : Your ride has been booked!");
+          }
+    </script>
+    <script>
+        function myFunction1() {
+            alert("Admin : Driver insertion successfull!");
+          }
+    </script><script>
+        function myFunction2() {
+            alert("Admin : Passenger insertion successfull!");
+          }
+    </script>
+    </script><script>
+        function myFunction3() {
+            alert("Admin : Vehicle insertion successfull!");
+        }
+    </script>
+    </script><script>
+        function myFunction4() {
+            alert("Admin : Ride cancelation successfull!");
+        }
+    </script>
 <!--===============================================================================================-->
 	<script src="../static/js/main.js"></script>
 
