@@ -89,7 +89,7 @@ def login():
             error = 'Invalid credentials. Please try again!'
         else:
             session['contact'] = contact
-            if(session['contact'] == acontact): 
+            if(session['contact'] == acontact):
                 session['contact']=acontact
                 return redirect('/adminPage')
             return redirect('/index')
