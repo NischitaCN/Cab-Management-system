@@ -49,14 +49,16 @@ def rider():
         return render_template('rider.html',rows=row)
     return render_template('login.html')
 
-@app.route('/bookcab')
+@app.route('/bookcab',methods=['GET','POST'])
 def bookcab():
     con=mysql.connection
     cur=con.cursor()
-    cur.execute('select * from DRIVERS')
-    row=cur.fetchall()
-    return render_template('bookcab.html',rows=row)
-    return render_template('rider.html')
+    def renderFunction():
+        cur.execute('select * from DRIVERS')
+        row=cur.fetchall()
+        return render_template('bookcab.html',rows=row)
+        return render_template('rider.html')
+    # def bookCabInsert():
 
 @app.route('/adminPage')
 def adminPage():
@@ -290,15 +292,33 @@ def duplicate_ride(start,end):
 def cancelcabinsert():
     con=mysql.connection
     cur=con.cursor()
-    if 'bookcrideform' in request.form:
-        crideid=request.form['crideid']
-        criderid=request.form['criderid']
-        cdriverid=request.form['cdriverid']
-        reason=request.form['reason']
-        cur.execute("insert into CANCELLED_RIDES values(%s,%s,%s,%s)",(crideid,criderid,cdriverid,reason))
-        con.commit()
-        return redirect('/rider')
-    return render_template('insert.html')
+    if(request.method=='POST'):
+        if 'bookcrideform' in request.form:
+            crideid=request.form['crideid']
+            criderid=request.form['criderid']
+            cdriverid=request.form['cdriverid']
+            reason=request.form['reason']
+            duplicate = duplicate_cride(crideid)
+            if duplicate == True:
+                return render_template('bookcab.html')
+            cur.execute("insert into CANCELLED_RIDES(RideId,RiderId,DriverId,Reason) values(%s,%s,%s,%s)",(crideid,criderid,cdriverid,reason))
+            con.commit()
+            return redirect('/rider')
+    return render_template('index.html')
+
+def duplicate_cride(rideID):
+    con = mysql.connection
+    duplicate = False
+    cur = con.cursor()
+    cur.execute('select RideId from cancelled_rides')
+    rows = cur.fetchall()
+    for row in rows:
+        crs = str(row[0])
+        if(crs == rideID):
+            duplicate = True
+            break
+    return duplicate
+
 def duplicate_ride(start,end):
     con = mysql.connection
     duplicate = False
@@ -312,6 +332,7 @@ def duplicate_ride(start,end):
             duplicate = True
             break
     return duplicate
+
 def duplicate_driver(fname,lname,vno):
     con = mysql.connection
     duplicate = False
