@@ -58,7 +58,6 @@
                             <th scope="col">Ride End Time</th>
                             <th scope="col">Pickup Location</th>
                             <th scope="col">Drop Location</th>
-                            <th scope="col">Type</th>
                             <th scope="col">Fare</th>
 						</tr>
 					</thead>
@@ -73,7 +72,6 @@
 							<td>{{row[5]}}</td>
 							<td>{{row[6]}}</td>
                             <td>{{row[7]}}</td>
-                            <td>{{row[8]}}</td>
                         </tr> 
                         {% endfor %}	
 					</tbody>
@@ -94,7 +92,6 @@
                         <th scope="col">First Name</th>
                         <th scope="col">Last Name</th>
                         <th scope="col">Vehicle Number</th>
-                        <th scope="col">Vehicle Name</th>
                         </tr>
                     </thead>
                     <tbody> 
@@ -104,7 +101,6 @@
                             <td>{{row[1]}}</td>
                             <td>{{row[2]}}</td>
                             <td>{{row[3]}}</td>
-                            <td>{{row[4]}}</td>
                         </tr> 
                         {% endfor %}	
                     </tbody>
@@ -136,9 +132,10 @@
                     <thead>
                     <tr>
                         <!--<th scope="col">#</th>-->
+                        <th scope="col">Vehicle_Number</th>
                         <th scope="col">Vehicle_Name</th>
                         <th scope="col">Type</th>
-                        <th scope="col">Model</th>
+                        <th scope="col">Make</th>
                     </tr>
                     </thead>
                     <tbody> 
@@ -147,6 +144,7 @@
                             <td>{{row[0]}}</td>
                             <td>{{row[1]}}</td>
                             <td>{{row[2]}}</td>
+                            <td>{{row[3]}}</td>
                         </tr> 
                         {% endfor %}	
                     </tbody>

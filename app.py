@@ -28,7 +28,7 @@ def index():
         contact=session['contact']
         cur.execute("select RiderId from RIDERS where Contact=(%s)",(contact,))
         riderid = cur.fetchall()
-        cur.execute("select RideId,DriverId,DateTime_start,DateTime_end,Pickup_loc,Drop_loc,Type,Fare from RIDES where RiderId=(%s)",(riderid[0],))
+        cur.execute("select RideId,DriverId,DateTime_start,DateTime_end,Pickup_loc,Drop_loc,Fare from RIDES where RiderId=(%s)",(riderid[0],))
         rows=cur.fetchall()
         return render_template('index.html',rows=rows)
     else:
@@ -154,11 +154,10 @@ def insert():
                 dtend=request.form['dtend']
                 ploc=request.form['ploc']
                 dloc=request.form['dloc']
-                rtype=request.form['rtype']
                 duplicate=duplicate_ride(dtstart,dtend)
                 if duplicate==True:
                     return render_template('insert.html')
-                cur.execute("insert into RIDES(DriverId,RiderId,DateTime_start,DateTime_end,Pickup_loc,Drop_loc,Type) values(%s,%s,%s,%s,%s,%s,%s)",(rdriverid,rriderid,dtstart,dtend,ploc,dloc,rtype))
+                cur.execute("insert into RIDES(DriverId,RiderId,DateTime_start,DateTime_end,Pickup_loc,Drop_loc) values(%s,%s,%s,%s,%s,%s)",(rdriverid,rriderid,dtstart,dtend,ploc,dloc))
                 con.commit()
                 return redirect('/adminPage')
             if 'driverform' in request.form:
@@ -166,11 +165,10 @@ def insert():
                 dfname=request.form['dfname']
                 dlname=request.form['dlname']
                 dvno=request.form['dvno']
-                dvname=request.form['dvname']
                 duplicate=duplicate_driver(dfname,dlname,dvno)
                 if duplicate==True:
                     return render_template('insert.html')
-                cur.execute("insert into DRIVERS(First_Name,Last_Name,Vehicle_No,Vehicle) values(%s,%s,%s,%s)",(dfname,dlname,dvno,dvname))
+                cur.execute("insert into DRIVERS(First_Name,Last_Name,Vehicle_No) values(%s,%s,%s)",(dfname,dlname,dvno))
                 con.commit()
                 return redirect('/adminPage')
             if 'riderform' in request.form:
@@ -185,10 +183,11 @@ def insert():
                 con.commit()
                 return redirect('/adminPage')
             if 'vform' in request.form:
+                vno=request.form['vno']
                 vname=request.form['vname']
                 vtype=request.form['vtype']
                 make=request.form['make']
-                cur.execute("insert into VEHICLE values(%s,%s,%s)",(vname,vtype,make))
+                cur.execute("insert into VEHICLE values(%s,%s,%s,%s)",(vno,vname,vtype,make))
                 con.commit()
                 return redirect('/adminPage')
             if 'crideform' in request.form:
@@ -213,11 +212,10 @@ def insert():
                 dtend=request.form['dtend']
                 ploc=request.form['ploc']
                 dloc=request.form['dloc']
-                rtype=request.form['rtype']
                 duplicate=duplicate_ride(dtstart,dtend)
                 if duplicate==True:
                     return render_template('bookcab.html')
-                cur.execute("insert into RIDES(DriverId,RiderId,DateTime_start,DateTime_end,Pickup_loc,Drop_loc,Type) values(%s,%s,%s,%s,%s,%s,%s)",(rdriverid,rriderid,dtstart,dtend,ploc,dloc,rtype))
+                cur.execute("insert into RIDES(DriverId,RiderId,DateTime_start,DateTime_end,Pickup_loc,Drop_loc) values(%s,%s,%s,%s,%s,%s)",(rdriverid,rriderid,dtstart,dtend,ploc,dloc))
                 con.commit()
                 return redirect('/adminPage')
             if 'crideform' in request.form:
@@ -403,15 +401,20 @@ def delete():
         if(request.method=='POST'):
             if 'dcrideform' in request.form:
                 crideid=request.form['crideid']
-                cur.execute('delete from CANCELLED_RIDES where RideId=%s',(crideid))
+                cur.execute('delete from cancelled_rides where RideId=%s',(crideid))
+                con.commit()
                 return redirect('/adminPage')
+            
             if 'drideform' in request.form:
                 rideid=request.form['rideid']
-                cur.execute('delete from RIDES where RideId=%s',(rideid))
+                cur.execute('delete from RIDES where RideId=%s',(rideid,))
+                con.commit()
                 return redirect('/adminPage')
+            
             if 'ddriverform' in request.form:
                 driverid=request.form['driverid']
                 cur.execute('delete from DRIVERS where DriverId=%s',(driverid))
+                con.commit()
                 return redirect('/adminPage')
             if 'driderform' in request.form:
                 riderid=request.form['riderid']
@@ -419,8 +422,9 @@ def delete():
                 con.commit()
                 return redirect('/adminPage')
             if 'dvform' in request.form:
-                vname=request.form['vname']
-                cur.execute('delete from VEHICLE where Vehicle_Name=%s',(vname))
+                vno=request.form['vno']
+                cur.execute('delete from VEHICLE where Vehicle_No=%s',(vno,))
+                con.commit()
                 return redirect('/adminPage')
         return render_template('delete.html')
 
