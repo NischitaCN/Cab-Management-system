@@ -28,7 +28,7 @@
 			<div class="wrap-login100">
 				<div class="container-login100-form-btn">
 					<a href="/logout" style="margin-left: 80%;">
-					<button class="login100-form-btn" >
+					<button class="login100-form-btn" onclick="logout()">
 						Logout
 					</button>
 					</a>
@@ -50,7 +50,7 @@
                                 <span class="focus-input100"></span>
                             </div>                  
                             <div class="container-login100-form-btn">
-                                <button name="dcrideform" class="login100-form-btn js-tilt" type="submit">
+                                <button name="dcrideform" class="login100-form-btn js-tilt" type="submit" onclick="myFunction4()">
                                     DELETE Row
                                 </button>
                             </div>
@@ -68,7 +68,7 @@
                                 <span class="focus-input100"></span>
                             </div>                  
                             <div class="container-login100-form-btn">
-                                <button name="drideform" class="login100-form-btn js-tilt" type="submit">
+                                <button name="drideform" class="login100-form-btn js-tilt" type="submit" onclick="myFunction()">
                                     DELETE Row
                                 </button>
                             </div>
@@ -86,7 +86,7 @@
                                 <span class="focus-input100"></span>
                             </div>                  
                             <div class="container-login100-form-btn">
-                                <button name="ddriverform" class="login100-form-btn js-tilt" type="submit">
+                                <button name="ddriverform" class="login100-form-btn js-tilt" type="submit" onclick="myFunction1()">
                                     DELETE Row
                                 </button>
                             </div>
@@ -104,7 +104,7 @@
                                 <span class="focus-input100"></span>
                             </div>                  
                             <div class="container-login100-form-btn">
-                                <button name="driderform" class="login100-form-btn js-tilt" type="submit">
+                                <button name="driderform" class="login100-form-btn js-tilt" type="submit" onclick="myFunction2()">
                                     DELETE Row
                                 </button>
                             </div>
@@ -122,7 +122,7 @@
                                 <span class="focus-input100"></span>
                             </div>                  
                             <div class="container-login100-form-btn">
-                                <button name="dvform" class="login100-form-btn js-tilt" type="submit">
+                                <button name="dvform" class="login100-form-btn js-tilt" type="submit" onclick="myFunction3()">
                                     DELETE Row
                                 </button>
                             </div>
@@ -151,6 +151,35 @@
 			scale: 1.1
 		})
 	</script>
+    <script>
+        function myFunction() {
+            alert("Admin : Your ride has been deleted!");
+          }
+    </script>
+    <script>
+        function myFunction1() {
+            alert("Admin : Driver deletion successfull!");
+          }
+    </script><script>
+        function myFunction2() {
+            alert("Admin : Passenger deletion successfull!");
+          }
+    </script>
+    </script><script>
+        function myFunction3() {
+            alert("Admin : Vehicle deletion successfull!");
+        }
+    </script>
+    </script><script>
+        function myFunction4() {
+            alert("Admin : Cancelled ride deletion successfull!");
+        }
+    </script>
+    <script>
+        function logout() {
+            alert("Logged Out! Thank you visit again...");
+          }
+    </script>
 <!--===============================================================================================-->
 	<script src="../static/js/main.js"></script>
 

@@ -401,7 +401,7 @@ def delete():
         if(request.method=='POST'):
             if 'dcrideform' in request.form:
                 crideid=request.form['crideid']
-                cur.execute('delete from cancelled_rides where RideId=%s',(crideid))
+                cur.execute('delete from cancelled_rides where RideId=%s',(crideid,))
                 con.commit()
                 return redirect('/adminPage')
             
