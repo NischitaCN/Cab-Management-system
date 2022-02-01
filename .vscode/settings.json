@@ -8,9 +8,13 @@
             "server": "localhost",
             "port": 3306,
             "driver": "MySQL",
+<<<<<<< Updated upstream
             "name": "myconnection",
+=======
+            "name": "firstConnection",
+>>>>>>> Stashed changes
             "database": "cabrides",
-            "username": "sqluser",
+            "username": "sqlrak",
             "password": "password"
         }
     ]
