@@ -3,8 +3,8 @@ from flask_mysqldb import MySQL
 
 app=Flask(__name__)
 app.config['MYSQL_HOST'] ='localhost'
-app.config['MYSQL_USER']='sqlrak'
-app.config['MYSQL_PASSWORD']='password'
+app.config['MYSQL_USER']='nish'
+app.config['MYSQL_PASSWORD']='nischita'
 app.config['MYSQL_DB']='cabrides'
 app.secret_key = '%jsdj!@'
 mysql=MySQL(app)
@@ -93,17 +93,20 @@ def validate_user(fname,contact):
     con = mysql.connection
     validate = False
 
-    with con:
-        cur = con.cursor()
-        cur.execute('select First_Name, Contact from RIDERS')
-        rows = cur.fetchall()
-        for row in rows:
-            dfname = row[0]
-            dcontact = row[1]
-            if(dfname == fname and dcontact == contact):
-                validate = True
-                break
+    #with mysql.connection as con:
+    cur = con.cursor()
+    cur.execute('select First_Name, Contact from RIDERS')
+    rows = cur.fetchall()
+    for row in rows:
+        dfname = row[0]
+        dcontact = row[1]
+        if(dfname == fname and dcontact == contact):
+            validate = True
+            break
+    cur.close()
+    con.close()
     return validate
+
 
 
 @app.route('/signup',methods=['GET','POST'])
@@ -274,7 +277,7 @@ def duplicate_rider(contact):
 def bookcab():
     con=mysql.connection
     cur=con.cursor()
-    cur.execute('select * from DRIVERS')
+    cur.execute('call get_all_avaliable_drivers();')
     row=cur.fetchall()
     return render_template('bookcab.html',rows=row)
     return render_template('rider.html')

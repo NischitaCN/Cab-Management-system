@@ -1,6 +1,6 @@
 import mysql.connector
 
-con = mysql.connector.connect(user='sqlrak', password='password', host='localhost', database='cabrides',auth_plugin='mysql_native_password')
+con = mysql.connector.connect(user='nish', password='nischita', host='localhost', database='cabrides',auth_plugin='mysql_native_password')
 c = con.cursor()
 def create_table():
 
@@ -10,4 +10,5 @@ def create_table():
     c.execute('CREATE TABLE IF NOT EXISTS RIDES (RideId INT NOT NULL AUTO_INCREMENT,DriverId INT NOT NULL,RiderId INT NOT NULL,DateTime_start DATETIME NOT NULL,DateTime_end DATETIME NOT NULL,Pickup_loc VARCHAR(60) NOT NULL,Drop_loc VARCHAR(60) NOT NULL,Fare INT NULL,PRIMARY KEY (RideId),CONSTRAINT DriverId FOREIGN KEY (DriverId) REFERENCES DRIVERS (DriverId) ON UPDATE CASCADE,CONSTRAINT RiderId FOREIGN KEY (RiderId) REFERENCES RIDERS (RiderId) ON UPDATE CASCADE)')
     c.execute('CREATE TABLE IF NOT EXISTS CANCELLED_RIDES (RideId INT,RiderId INT,DriverId INT,Reason VARCHAR(100),PRIMARY KEY (RideId,RiderId,DriverId),CONSTRAINT RideId1 FOREIGN KEY (RideId) REFERENCES RIDES (RideId) ON DELETE CASCADE ON UPDATE CASCADE,CONSTRAINT RiderId1 FOREIGN KEY (RiderId) REFERENCES RIDERS (RiderId),CONSTRAINT DriverId1 FOREIGN KEY (DriverId) REFERENCES DRIVERS (DriverId))')
     c.execute('CREATE TRIGGER RIDES_FARE BEFORE INSERT ON RIDES FOR EACH ROW BEGIN SET new.Fare = TIMESTAMPDIFF(MINUTE,new.DateTime_start,new.DateTime_end)*3; END')
+    c.execute('CREATE PROCEDURE get_all_avaliable_drivers() BEGIN SELECT * FROM drivers;END;')
 create_table()
